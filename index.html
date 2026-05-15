@@ -17,26 +17,26 @@
         }
 
         :root {
-            --primary: #0A66C2;
-            --primary-dark: #004182;
-            --secondary: #00A0DC;
-            --accent: #FF6B35;
-            --text: #1A1A1A;
-            --text-light: #4A4A4A;
-            --text-muted: #6B6B6B;
-            --bg: #FFFFFF;
-            --bg-alt: #F8F9FA;
-            --bg-section: #F4F6F8;
-            --border: #E0E0E0;
-            --shadow: rgba(0, 0, 0, 0.08);
-            --shadow-hover: rgba(0, 0, 0, 0.12);
+            --primary: #0D3B66;
+            --primary-dark: #062B4E;
+            --secondary: #0077B6;
+            --accent: #FA7C5D;
+            --text: #111827;
+            --text-light: #4B5563;
+            --text-muted: #6B7280;
+            --bg: #F5F7FA;
+            --bg-alt: #FFFFFF;
+            --bg-section: #F8FAFC;
+            --border: #E5E7EB;
+            --shadow: rgba(15, 23, 42, 0.08);
+            --shadow-hover: rgba(15, 23, 42, 0.14);
         }
 
         body {
             font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             color: var(--text);
             background: var(--bg);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
@@ -223,13 +223,39 @@
             align-items: center;
         }
 
+        .hero-text {
+            max-width: 600px;
+        }
+
         .hero-text h1 {
-            font-size: 3.5rem;
+            font-size: 3.75rem;
             font-weight: 700;
-            line-height: 1.1;
+            line-height: 1.05;
             margin-bottom: 1rem;
             color: var(--text);
             animation: slideInLeft 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-text .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1rem;
+            border-radius: 999px;
+            background: rgba(13, 59, 102, 0.08);
+            color: var(--primary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 1.4rem;
+            animation: slideInLeft 0.8s ease-out 0.1s backwards;
+        }
+
+        .hero-text .role {
+            font-size: 1.75rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: slideInLeft 0.8s ease-out 0.4s backwards;
         }
 
         @keyframes slideInLeft {
@@ -243,19 +269,11 @@
             }
         }
 
-        .hero-text .role {
-            font-size: 1.8rem;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            animation: slideInLeft 0.8s ease-out 0.4s backwards;
-        }
-
         .hero-text .tagline {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: var(--text-light);
             margin-bottom: 2rem;
-            line-height: 1.7;
+            line-height: 1.8;
             animation: slideInLeft 0.8s ease-out 0.6s backwards;
         }
 
@@ -1018,8 +1036,8 @@
                 <li><a href="#contact">Contacto</a></li>
             </ul>
             <div class="lang-switcher">
-                <button class="active" onclick="switchLanguage('es')">ES</button>
-                <button onclick="switchLanguage('en')">EN</button>
+                <button class="active" onclick="switchLanguage('es', this)">ES</button>
+                <button onclick="switchLanguage('en', this)">EN</button>
             </div>
         </div>
     </nav>
@@ -1029,15 +1047,15 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
+                    <div class="hero-badge">Analista de Datos · Business Intelligence · SQL / Power BI</div>
                     <h1>Federico Carnevalle</h1>
-                    <div class="role">Data & Business Analyst</div>
-                    <p class="tagline">
-                        Transformando datos en insights estratégicos con SQL, Power BI y BigQuery. 
-                        Especializado en Business Intelligence y análisis de datos para la toma de decisiones basadas en datos.
+                    <div class="role">Soluciones de datos para decisiones estratégicas</div>
+                    <p class="tagline" id="heroTagline">
+                        Diseño soluciones de análisis y dashboards ejecutivos con SQL, Power BI y BigQuery, apoyando equipos comerciales y de operaciones a tomar decisiones claras y confiables.
                     </p>
                     <div class="hero-buttons">
-                        <a href="#contact" class="btn btn-primary">Contactar</a>
-                        <a href="#projects" class="btn btn-secondary">Ver Proyectos</a>
+                        <a href="#contact" class="btn btn-primary" id="heroContactBtn">Contactar</a>
+                        <a href="#projects" class="btn btn-secondary" id="heroProjectsBtn">Ver Proyectos</a>
                     </div>
                 </div>
                 <div class="hero-image">
@@ -1060,13 +1078,13 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <p>
+                    <p id="aboutText1">
                         Soy <strong>Analista de Datos</strong> con más de 3 años de experiencia transformando datos complejos 
                         en insights accionables que impulsan la toma de decisiones estratégicas. Mi formación en 
                         <strong>Ingeniería Industrial</strong> me proporciona una base sólida en pensamiento sistemático 
                         y optimización de procesos.
                     </p>
-                    <p>
+                    <p id="aboutText2">
                         Especializado en el desarrollo de <strong>dashboards interactivos</strong> y sistemas de 
                         <strong>Business Intelligence</strong> utilizando SQL, Power BI y BigQuery. Trabajé en proyectos 
                         que abarcan desde <strong>marketing digital</strong> hasta <strong>análisis en áreas comerciales y 
@@ -1075,19 +1093,19 @@
                     </p>
                 </div>
                 <div class="about-highlights">
-                    <div class="highlight-item">
+                    <div class="highlight-item" id="highlight1">
                         <h3>🎯 Orientado a Resultados</h3>
                         <p>Optimización de procesos operacionales y campañas de marketing digital con impacto medible</p>
                     </div>
-                    <div class="highlight-item">
+                    <div class="highlight-item" id="highlight2">
                         <h3>💼 Visión de Negocio</h3>
                         <p>Background en Ingeniería Industrial aplicado al análisis de datos y BI</p>
                     </div>
-                    <div class="highlight-item">
+                    <div class="highlight-item" id="highlight3">
                         <h3>🌍 Idiomas</h3>
                         <p>Español (nativo) e Inglés upper-intermediate/avanzado</p>
                     </div>
-                    <div class="highlight-item">
+                    <div class="highlight-item" id="highlight4">
                         <h3>⚡ Stack</h3>
                         <p>Desde extracción de datos con SQL hasta dashboards ejecutivos en Power BI</p>
                     </div>
@@ -1140,62 +1158,78 @@
                 <p class="subtitle">Proyectos de análisis de datos y BI desarrollados en GitHub</p>
             </div>
             <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">📊</div>
+                <div class="project-card" data-project-index="0">
+                    <div class="project-image">🏨</div>
                     <div class="project-content">
-                        <h3>Power BI Projects</h3>
+                        <h3>Reservas Hoteleras (Power BI)</h3>
                         <p>
-                            Colección de dashboards y reportes interactivos desarrollados en Power BI. 
-                            Incluye análisis de ventas, KPIs operacionales y visualizaciones de datos de negocio.
+                            Dashboard Power BI para análisis de reservas hoteleras, comportamiento de ocupación y métricas operativas clave.
                         </p>
                         <div class="project-tags">
                             <span class="project-tag">Power BI</span>
                             <span class="project-tag">DAX</span>
-                            <span class="project-tag">Power Query</span>
-                            <span class="project-tag">Data Modeling</span>
+                            <span class="project-tag">Visualización</span>
+                            <span class="project-tag">KPI</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/fedecarnevalle/PowerBI-projects" target="_blank" class="project-link">Ver en GitHub</a>
+                            <a href="https://github.com/fedecarnevalle/PowerBI-Hotel-Reservations" target="_blank" class="project-link">Ver en GitHub</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card">
-                    <div class="project-image">🐍</div>
+                <div class="project-card" data-project-index="1">
+                    <div class="project-image">🛒</div>
                     <div class="project-content">
-                        <h3>Python Data Analysis</h3>
+                        <h3>Análisis de Clientes Ecommerce</h3>
                         <p>
-                            Proyectos de análisis de datos utilizando Python, Pandas y NumPy. 
-                            Incluye exploración de datos, limpieza, transformación y visualizaciones.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Pandas</span>
-                            <span class="project-tag">NumPy</span>
-                            <span class="project-tag">Matplotlib</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/fedecarnevalle/Python-projects" target="_blank" class="project-link">Ver en GitHub</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">🗄️</div>
-                    <div class="project-content">
-                        <h3>SQL Analysis & Queries</h3>
-                        <p>
-                            Repositorio de queries SQL para análisis de datos, optimización de consultas 
-                            y extracción de insights de bases de datos relacionales.
+                            Análisis de clientes ecommerce con SQL para identificar segmentos, comportamiento de compra y oportunidades de retención.
                         </p>
                         <div class="project-tags">
                             <span class="project-tag">SQL</span>
-                            <span class="project-tag">MySQL</span>
-                            <span class="project-tag">PostgreSQL</span>
-                            <span class="project-tag">Data Analysis</span>
+                            <span class="project-tag">Customer Analytics</span>
+                            <span class="project-tag">Data Modeling</span>
+                            <span class="project-tag">BigQuery</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/fedecarnevalle/SQL-projects" target="_blank" class="project-link">Ver en GitHub</a>
+                            <a href="https://github.com/fedecarnevalle/SQL-Ecommerce-Customer-Analysis" target="_blank" class="project-link">Ver en GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-project-index="2">
+                    <div class="project-image">🚲</div>
+                    <div class="project-content">
+                        <h3>Análisis NYC Citibike</h3>
+                        <p>
+                            Estudio de uso de Citibike en Nueva York con SQL para detectar patrones de movilidad y demanda por estación.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">SQL</span>
+                            <span class="project-tag">BigQuery</span>
+                            <span class="project-tag">Mobility Insights</span>
+                            <span class="project-tag">Data Storytelling</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/fedecarnevalle/SQL-NYC-Citybike-Analysis" target="_blank" class="project-link">Ver en GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-project-index="3">
+                    <div class="project-image">🔍</div>
+                    <div class="project-content">
+                        <h3>Análisis de Detección de Fraude</h3>
+                        <p>
+                            Análisis de detección de fraude con SQL para identificar transacciones sospechosas y patrones de riesgo.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">SQL</span>
+                            <span class="project-tag">Fraud Detection</span>
+                            <span class="project-tag">Data Quality</span>
+                            <span class="project-tag">Risk Analytics</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/fedecarnevalle/SQL-Fraud-Detection-Analysis" target="_blank" class="project-link">Ver en GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -1395,17 +1429,17 @@
                             <a href="mailto:fedecarnevalle@gmail.com">fedecarnevalle@gmail.com</a>
                         </div>
                     </div>
-                    <div class="contact-item">
+                            <div class="contact-item">
                         <div class="contact-icon">📱</div>
                         <div class="contact-details">
-                            <h3>Teléfono</h3>
+                            <h3 id="contactPhone">Teléfono</h3>
                             <a href="tel:+543513298047">+54 351 3298047</a>
                         </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">📍</div>
                         <div class="contact-details">
-                            <h3>Ubicación</h3>
+                            <h3 id="contactLocation">Ubicación</h3>
                             <a>Córdoba, Argentina</a>
                         </div>
                     </div>
@@ -1534,14 +1568,22 @@
                     contact: 'Contacto'
                 },
                 hero: {
-                    role: 'Data & Business Analyst',
-                    tagline: 'Transformando datos en insights estratégicos con SQL, Power BI y BigQuery. Especializado en Business Intelligence y análisis de datos para la toma de decisiones basadas en datos.',
+                    role: 'Soluciones de datos para decisiones estratégicas',
+                    tagline: 'Diseño soluciones de análisis y dashboards ejecutivos con SQL, Power BI y BigQuery, apoyando equipos comerciales y de operaciones a tomar decisiones claras y confiables.',
                     contact: 'Contactar',
                     projects: 'Ver Proyectos'
                 },
                 about: {
                     title: 'Sobre Mí',
-                    subtitle: 'Analista de Datos con enfoque en Business Intelligence'
+                    subtitle: 'Analista de Datos con enfoque en Business Intelligence',
+                    text1: 'Soy Analista de Datos con más de 3 años de experiencia transformando datos complejos en insights accionables que impulsan la toma de decisiones estratégicas. Mi formación en Ingeniería Industrial me proporciona una base sólida en pensamiento sistemático y optimización de procesos.',
+                    text2: 'Especializado en el desarrollo de dashboards interactivos y sistemas de Business Intelligence utilizando SQL, Power BI y BigQuery. Trabajé en proyectos que abarcan desde marketing digital hasta análisis en áreas comerciales y logísticas, combinando análisis de datos con investigación de contexto y mercado para identificar oportunidades de optimización en resultados, márgenes y reducción de costos operacionales.',
+                    highlights: [
+                        { title: '🎯 Orientado a Resultados', description: 'Optimización de procesos operacionales y campañas de marketing digital con impacto medible' },
+                        { title: '💼 Visión de Negocio', description: 'Background en Ingeniería Industrial aplicado al análisis de datos y BI' },
+                        { title: '🌍 Idiomas', description: 'Español (nativo) e Inglés upper-intermediate/avanzado' },
+                        { title: '⚡ Stack', description: 'Desde extracción de datos con SQL hasta dashboards ejecutivos en Power BI' }
+                    ]
                 },
                 stack: {
                     title: 'Stack Tecnológico',
@@ -1551,7 +1593,13 @@
                     title: 'Proyectos de Portfolio',
                     subtitle: 'Proyectos de análisis de datos y BI desarrollados en GitHub',
                     viewAll: 'Ver Todos los Proyectos en GitHub',
-                    viewProject: 'Ver en GitHub'
+                    viewProject: 'Ver en GitHub',
+                    cards: [
+                        { title: 'Reservas Hoteleras (Power BI)', description: 'Dashboard Power BI para análisis de reservas hoteleras, comportamiento de ocupación y métricas operativas clave.' },
+                        { title: 'Análisis de Clientes Ecommerce', description: 'Análisis de clientes ecommerce con SQL para identificar segmentos, comportamiento de compra y oportunidades de retención.' },
+                        { title: 'Análisis NYC Citibike', description: 'Estudio de uso de Citibike en Nueva York con SQL para detectar patrones de movilidad y demanda por estación.' },
+                        { title: 'Análisis de Detección de Fraude', description: 'Análisis de detección de fraude con SQL para identificar transacciones sospechosas y patrones de riesgo.' }
+                    ]
                 },
                 experience: {
                     title: 'Experiencia Profesional',
@@ -1585,14 +1633,22 @@
                     contact: 'Contact'
                 },
                 hero: {
-                    role: 'Data & Business Analyst',
-                    tagline: 'Transforming data into strategic insights with SQL, Power BI, and BigQuery. Specialized in Business Intelligence and data analysis for data-driven decision making.',
+                    role: 'Data solutions for strategic decisions',
+                    tagline: 'I design analytics solutions and executive dashboards with SQL, Power BI, and BigQuery, helping commercial and operations teams make clear, reliable decisions.',
                     contact: 'Contact',
                     projects: 'View Projects'
                 },
                 about: {
                     title: 'About Me',
-                    subtitle: 'Data Analyst focused on Business Intelligence'
+                    subtitle: 'Data Analyst focused on Business Intelligence',
+                    text1: 'I am a Data Analyst with over 3 years of experience transforming complex data into actionable insights that drive strategic decision-making. My Industrial Engineering background gives me a strong foundation in systematic thinking and process optimization.',
+                    text2: 'Specialized in developing interactive dashboards and Business Intelligence systems using SQL, Power BI, and BigQuery. I worked on projects ranging from digital marketing to commercial and logistics analysis, combining data analysis with market and context research to identify optimization opportunities in results, margins, and operational cost reduction.',
+                    highlights: [
+                        { title: '🎯 Results-Driven', description: 'Optimization of operational processes and digital marketing campaigns with measurable impact' },
+                        { title: '💼 Business-Minded', description: 'Industrial Engineering foundation applied to data analysis and BI' },
+                        { title: '🌍 Languages', description: 'Spanish (native) and upper-intermediate/advanced English' },
+                        { title: '⚡ Stack', description: 'From SQL data extraction to executive dashboards in Power BI' }
+                    ]
                 },
                 stack: {
                     title: 'Tech Stack',
@@ -1602,7 +1658,13 @@
                     title: 'Portfolio Projects',
                     subtitle: 'Data analysis and BI projects developed on GitHub',
                     viewAll: 'View All Projects on GitHub',
-                    viewProject: 'View on GitHub'
+                    viewProject: 'View on GitHub',
+                    cards: [
+                        { title: 'Hotel Reservations Analysis', description: 'Power BI dashboard for hotel reservation analytics, occupancy trends, and operational performance metrics.' },
+                        { title: 'Ecommerce Customer Analysis', description: 'SQL-based ecommerce customer analysis to identify segments, purchase behavior, and retention opportunities.' },
+                        { title: 'NYC Citibike Analysis', description: 'NYC Citibike usage study with SQL to uncover mobility patterns and station demand.' },
+                        { title: 'Fraud Detection Analysis', description: 'Fraud detection analysis with SQL to identify suspicious transactions and risk patterns.' }
+                    ]
                 },
                 experience: {
                     title: 'Professional Experience',
@@ -1627,12 +1689,14 @@
             }
         };
 
-        function switchLanguage(lang) {
+        function switchLanguage(lang, button) {
             // Update active button
             document.querySelectorAll('.lang-switcher button').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            if (button) {
+                button.classList.add('active');
+            }
             
             const t = translations[lang];
             
@@ -1648,9 +1712,9 @@
             
             // Update hero
             document.querySelector('.hero-text .role').textContent = t.hero.role;
-            document.querySelector('.hero-text .tagline').textContent = t.hero.tagline;
-            document.querySelectorAll('.hero-buttons .btn')[0].textContent = t.hero.contact;
-            document.querySelectorAll('.hero-buttons .btn')[1].textContent = t.hero.projects;
+            document.getElementById('heroTagline').textContent = t.hero.tagline;
+            document.getElementById('heroContactBtn').textContent = t.hero.contact;
+            document.getElementById('heroProjectsBtn').textContent = t.hero.projects;
             
             // Update section headers
             document.querySelector('#about .section-header h2').textContent = t.about.title;
@@ -1666,6 +1730,25 @@
             document.querySelector('#contact .section-header h2').textContent = t.contact.title;
             document.querySelector('#contact .section-header .subtitle').textContent = t.contact.subtitle;
             
+            // Update about text
+            document.getElementById('aboutText1').textContent = t.about.text1;
+            document.getElementById('aboutText2').textContent = t.about.text2;
+            document.querySelectorAll('.highlight-item').forEach((item, index) => {
+                if (t.about.highlights[index]) {
+                    item.querySelector('h3').textContent = t.about.highlights[index].title;
+                    item.querySelector('p').textContent = t.about.highlights[index].description;
+                }
+            });
+            
+            // Update project cards
+            document.querySelectorAll('.project-card').forEach((card, index) => {
+                const project = t.projects.cards[index];
+                if (project) {
+                    card.querySelector('.project-content h3').textContent = project.title;
+                    card.querySelector('.project-content p').textContent = project.description;
+                }
+            });
+            
             // Update contact form labels
             document.querySelectorAll('.form-group label')[0].textContent = t.contact.name;
             document.querySelectorAll('.form-group label')[1].textContent = t.contact.email;
@@ -1673,8 +1756,8 @@
             document.querySelector('.contact-form button').textContent = t.contact.send;
             
             // Update contact info headers
-            document.querySelectorAll('.contact-details h3')[1].textContent = t.contact.phone;
-            document.querySelectorAll('.contact-details h3')[2].textContent = t.contact.location;
+            document.getElementById('contactPhone').textContent = t.contact.phone;
+            document.getElementById('contactLocation').textContent = t.contact.location;
             
             // Update tools labels
             document.querySelectorAll('.tools-label').forEach(label => {
@@ -1683,9 +1766,7 @@
             
             // Update project buttons
             document.querySelectorAll('.project-link').forEach(link => {
-                if (link.textContent.includes('GitHub') || link.textContent.includes('Ver')) {
-                    link.textContent = t.projects.viewProject;
-                }
+                link.textContent = t.projects.viewProject;
             });
             
             const viewAllBtn = document.querySelector('#projects .btn-primary');
