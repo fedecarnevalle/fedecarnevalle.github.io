@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Federico Carnevalle | Data & Business Analyst | SQL, Power BI, BigQuery</title>
+    <meta name="description" content="Federico Carnevalle - Analista de Datos especializado en SQL, Power BI y BigQuery. Experiencia en Business Intelligence, dashboards y análisis de datos para toma de decisiones. Córdoba, Argentina.">
+    <meta name="keywords" content="Data Analyst, Analista de Datos, Business Intelligence, SQL, Power BI, BigQuery, Looker Studio, Argentina, Córdoba, Data Analytics, Business Analyst, BI Specialist">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0A66C2;
+            --primary-dark: #004182;
+            --secondary: #00A0DC;
+            --accent: #FF6B35;
+            --text: #1A1A1A;
+            --text-light: #4A4A4A;
+            --text-muted: #6B6B6B;
+            --bg: #FFFFFF;
+            --bg-alt: #F8F9FA;
+            --bg-section: #F4F6F8;
+            --border: #E0E0E0;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            transition: color 0.3s ease;
+            letter-spacing: -0.02em;
+        }
+
+        nav .logo:hover {
+            color: var(--primary-dark);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-alt);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .lang-switcher button {
+            background: transparent;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-muted);
+        }
+
+        .lang-switcher button.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .lang-switcher button:hover:not(.active) {
+            color: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-section);
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(10, 102, 194, 0.03) 100%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: var(--text);
+            animation: slideInLeft 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .hero-text .role {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            animation: slideInLeft 0.8s ease-out 0.4s backwards;
+        }
+
+        .hero-text .tagline {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            animation: slideInLeft 0.8s ease-out 0.6s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: slideInLeft 0.8s ease-out 0.8s backwards;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(10, 102, 194, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Profile Image */
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideInRight 0.8s ease-out 0.4s backwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .profile-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            margin-top: -30px;
+        }
+
+        .profile-container::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .profile-image {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: var(--primary);
+            font-weight: 700;
+            z-index: 1;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .section-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .highlight-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .highlight-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px var(--shadow-hover);
+        }
+
+        .highlight-item h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .highlight-item p {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* Education Section */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .education-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid var(--primary);
+        }
+
+        .education-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px var(--shadow-hover);
+        }
+
+        .education-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-card h3 {
+            font-size: 1.4rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .education-card .institution {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .education-card .period {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .education-card .description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-stack-list {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 1.2rem 2rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: all 0.3s ease;
+            border-left: 3px solid var(--primary);
+        }
+
+        .tech-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px var(--shadow-hover);
+        }
+
+        .tech-icon {
+            font-size: 1.8rem;
+        }
+
+        .tech-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px var(--shadow-hover);
+        }
+
+        .skill-category h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-category h3::before {
+            content: '▸';
+            font-size: 1.5rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background: var(--bg-alt);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: var(--text);
+            font-weight: 500;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .skill-tag.advanced {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.6rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            background: var(--primary);
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(10, 102, 194, 0.1);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 16px var(--shadow-hover);
+        }
+
+        .timeline-header {
+            margin-bottom: 1rem;
+        }
+
+        .timeline-header h3 {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .timeline-header .company {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-header .period {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .timeline-content ul li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .timeline-content ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .tools {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .tools-label {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .tool-tag {
+            background: var(--bg-alt);
+            padding: 0.4rem 0.9rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            color: var(--text);
+            border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px var(--shadow-hover);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.4rem;
+            color: var(--text);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tag {
+            background: var(--bg-alt);
+            padding: 0.4rem 0.9rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            padding: 0.6rem 1.2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(8px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-alt);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .contact-details h3 {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+            font-weight: 500;
+        }
+
+        .contact-details a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: var(--primary);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 4px 10px var(--shadow);
+                transition: left 0.3s ease;
+            }
+
+            nav ul.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text .role {
+                font-size: 1.4rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .profile-container {
+                width: 280px;
+                height: 280px;
+            }
+
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .timeline {
+                padding-left: 0;
+            }
+
+            .timeline::before {
+                left: 0.5rem;
+            }
+
+            .timeline-item {
+                padding-left: 2.5rem;
+            }
+
+            .timeline-item::before {
+                left: 0.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">Federico Carnevalle</a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="navMenu">
+                <li><a href="#hero">Inicio</a></li>
+                <li><a href="#about">Sobre Mí</a></li>
+                <li><a href="#skills">Stack Tecnológico</a></li>
+                <li><a href="#projects">Proyectos</a></li>
+                <li><a href="#experience">Experiencia</a></li>
+                <li><a href="#education">Educación</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="active" onclick="switchLanguage('es')">ES</button>
+                <button onclick="switchLanguage('en')">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Federico Carnevalle</h1>
+                    <div class="role">Data & Business Analyst</div>
+                    <p class="tagline">
+                        Transformando datos en insights estratégicos con SQL, Power BI y BigQuery. 
+                        Especializado en Business Intelligence y análisis de datos para la toma de decisiones basadas en datos.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">Contactar</a>
+                        <a href="#projects" class="btn btn-secondary">Ver Proyectos</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="profile-container">
+                        <div class="profile-image">
+                            <img src="profile.jpg" alt="Federico Carnevalle">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>Sobre Mí</h2>
+                <p class="subtitle">Analista de Datos con enfoque en Business Intelligence</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Soy <strong>Analista de Datos</strong> con más de 3 años de experiencia transformando datos complejos 
+                        en insights accionables que impulsan la toma de decisiones estratégicas. Mi formación en 
+                        <strong>Ingeniería Industrial</strong> me proporciona una base sólida en pensamiento sistemático 
+                        y optimización de procesos.
+                    </p>
+                    <p>
+                        Especializado en el desarrollo de <strong>dashboards interactivos</strong> y sistemas de 
+                        <strong>Business Intelligence</strong> utilizando SQL, Power BI y BigQuery. Trabajé en proyectos 
+                        que abarcan desde <strong>marketing digital</strong> hasta <strong>análisis en áreas comerciales y 
+                        logísticas</strong>, combinando análisis de datos con investigación de contexto y mercado para 
+                        identificar oportunidades de optimización en resultados, márgenes y reducción de costos operacionales.
+                    </p>
+                </div>
+                <div class="about-highlights">
+                    <div class="highlight-item">
+                        <h3>🎯 Orientado a Resultados</h3>
+                        <p>Optimización de procesos operacionales y campañas de marketing digital con impacto medible</p>
+                    </div>
+                    <div class="highlight-item">
+                        <h3>💼 Visión de Negocio</h3>
+                        <p>Background en Ingeniería Industrial aplicado al análisis de datos y BI</p>
+                    </div>
+                    <div class="highlight-item">
+                        <h3>🌍 Idiomas</h3>
+                        <p>Español (nativo) e Inglés upper-intermediate/avanzado</p>
+                    </div>
+                    <div class="highlight-item">
+                        <h3>⚡ Stack</h3>
+                        <p>Desde extracción de datos con SQL hasta dashboards ejecutivos en Power BI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>Stack Tecnológico</h2>
+                <p class="subtitle">Herramientas y plataformas que utilizo para análisis de datos</p>
+            </div>
+            <div class="tech-stack-list">
+                <div class="tech-item">
+                    <span class="tech-icon">🗄️</span>
+                    <span class="tech-name">SQL</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-icon">📊</span>
+                    <span class="tech-name">Power BI</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-icon">📈</span>
+                    <span class="tech-name">Looker Studio</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-icon">☁️</span>
+                    <span class="tech-name">Google BigQuery</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-icon">🎯</span>
+                    <span class="tech-name">Google Ads</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-icon">📱</span>
+                    <span class="tech-name">Meta Ads</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>Proyectos de Portfolio</h2>
+                <p class="subtitle">Proyectos de análisis de datos y BI desarrollados en GitHub</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">📊</div>
+                    <div class="project-content">
+                        <h3>Power BI Projects</h3>
+                        <p>
+                            Colección de dashboards y reportes interactivos desarrollados en Power BI. 
+                            Incluye análisis de ventas, KPIs operacionales y visualizaciones de datos de negocio.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Power BI</span>
+                            <span class="project-tag">DAX</span>
+                            <span class="project-tag">Power Query</span>
+                            <span class="project-tag">Data Modeling</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/fedecarnevalle/PowerBI-projects" target="_blank" class="project-link">Ver en GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">🐍</div>
+                    <div class="project-content">
+                        <h3>Python Data Analysis</h3>
+                        <p>
+                            Proyectos de análisis de datos utilizando Python, Pandas y NumPy. 
+                            Incluye exploración de datos, limpieza, transformación y visualizaciones.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Pandas</span>
+                            <span class="project-tag">NumPy</span>
+                            <span class="project-tag">Matplotlib</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/fedecarnevalle/Python-projects" target="_blank" class="project-link">Ver en GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">🗄️</div>
+                    <div class="project-content">
+                        <h3>SQL Analysis & Queries</h3>
+                        <p>
+                            Repositorio de queries SQL para análisis de datos, optimización de consultas 
+                            y extracción de insights de bases de datos relacionales.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">SQL</span>
+                            <span class="project-tag">MySQL</span>
+                            <span class="project-tag">PostgreSQL</span>
+                            <span class="project-tag">Data Analysis</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/fedecarnevalle/SQL-projects" target="_blank" class="project-link">Ver en GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="https://github.com/fedecarnevalle?tab=repositories" target="_blank" class="btn btn-primary">
+                    Ver Todos los Proyectos en GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2>Experiencia Profesional</h2>
+                <p class="subtitle">Trayectoria en análisis de datos y Business Intelligence</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Data Analyst & Dashboard Developer</h3>
+                            <div class="company">Freelance · Profesional Independiente</div>
+                            <div class="period">Mayo 2024 - Actualidad | Remoto</div>
+                        </div>
+                        <ul>
+                            <li>Desarrollo de dashboards interactivos en Power BI para monitoreo de KPIs y soporte a la toma de decisiones estratégicas</li>
+                            <li>Análisis de datos de negocio para identificar tendencias, patrones y oportunidades de mejora en diferentes industrias</li>
+                            <li>Limpieza, transformación y modelado de datos utilizando Power Query y SQL para asegurar calidad y consistencia</li>
+                            <li>Automatización de reportes y procesos de actualización de información para optimizar tiempos de análisis</li>
+                        </ul>
+                        <div class="tools">
+                            <div class="tools-label">Tecnologías utilizadas:</div>
+                            <div class="tools-list">
+                                <span class="tool-tag">SQL</span>
+                                <span class="tool-tag">Power BI</span>
+                                <span class="tool-tag">Power Query</span>
+                                <span class="tool-tag">DAX</span>
+                                <span class="tool-tag">Excel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Data Analyst & Business Intelligence</h3>
+                            <div class="company">I+C Consultores</div>
+                            <div class="period">Octubre 2023 - Enero 2025 | Córdoba, Argentina</div>
+                        </div>
+                        <ul>
+                            <li>Análisis integral de datos de negocio combinando datos internos con investigación de mercado y contexto competitivo para identificar oportunidades estratégicas</li>
+                            <li>Investigación y análisis de contexto de negocio e industria para complementar análisis cuantitativos con insights cualitativos del mercado</li>
+                            <li>Desarrollo de dashboards interactivos en Power BI integrando múltiples fuentes de datos para monitoreo de KPIs y soporte a decisiones estratégicas</li>
+                            <li>Automatización de procesos de reporting y actualización de datos utilizando Power Query y SQL para optimizar workflows analíticos</li>
+                        </ul>
+                        <div class="tools">
+                            <div class="tools-label">Tecnologías utilizadas:</div>
+                            <div class="tools-list">
+                                <span class="tool-tag">SQL</span>
+                                <span class="tool-tag">Power BI</span>
+                                <span class="tool-tag">Power Query</span>
+                                <span class="tool-tag">DAX</span>
+                                <span class="tool-tag">Excel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Performance Specialist</h3>
+                            <div class="company">Winclap</div>
+                            <div class="period">Enero 2023 - Octubre 2023 | Córdoba, Argentina</div>
+                        </div>
+                        <ul>
+                            <li>Análisis de performance de campañas digitales en TikTok Ads, Google Ads y Meta Ads para identificar oportunidades de optimización</li>
+                            <li>Gestión y optimización de presupuestos mensuales superiores a USD $100K, enfocado en reducción de costos de adquisición (CPA) y mejora de eficiencia publicitaria</li>
+                            <li>Análisis de A/B testing para evaluar estrategias de adquisición, segmentación y targeting</li>
+                            <li>Desarrollo de dashboards de performance con BigQuery y Looker Studio para monitoreo de KPIs (CPA, ROAS, conversion rate)</li>
+                            <li>Elaboración de reportes y presentación de insights estratégicos a clientes y stakeholders</li>
+                        </ul>
+                        <div class="tools">
+                            <div class="tools-label">Tecnologías utilizadas:</div>
+                            <div class="tools-list">
+                                <span class="tool-tag">BigQuery</span>
+                                <span class="tool-tag">Looker Studio</span>
+                                <span class="tool-tag">SQL</span>
+                                <span class="tool-tag">Google Analytics</span>
+                                <span class="tool-tag">Google Ads</span>
+                                <span class="tool-tag">Meta Ads</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Analista Industrial y Logístico</h3>
+                            <div class="company">Renault S.A</div>
+                            <div class="period">Septiembre 2021 - Enero 2023 | Córdoba, Argentina</div>
+                        </div>
+                        <ul>
+                            <li>Desarrollo de dashboards de KPIs logísticos y operacionales para monitorear eficiencia de procesos de producción y distribución</li>
+                            <li>Análisis de datos de producción y logística para identificar oportunidades de optimización operacional</li>
+                            <li>Participación en iniciativas de Industria 4.0 enfocadas en digitalización y monitoreo de procesos productivos</li>
+                            <li>Colaboración con equipos operacionales para traducir insights de datos en mejoras de procesos</li>
+                        </ul>
+                        <div class="tools">
+                            <div class="tools-label">Tecnologías utilizadas:</div>
+                            <div class="tools-list">
+                                <span class="tool-tag">Excel</span>
+                                <span class="tool-tag">Power BI</span>
+                                <span class="tool-tag">SQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Intercambio Cultural</h3>
+                            <div class="company">Australia</div>
+                            <div class="period">Enero 2025 - Febrero 2026</div>
+                        </div>
+                        <ul>
+                            <li>Experiencia internacional enfocada en desarrollo personal, autonomía y adaptabilidad</li>
+                            <li>Perfeccionamiento de inglés (upper-intermediate/avanzado) y habilidades de comunicación en entornos multiculturales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <div class="section-header">
+                <h2>Educación & Certificaciones</h2>
+                <p class="subtitle">Formación académica y desarrollo profesional continuo</p>
+            </div>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="icon">🎓</div>
+                    <h3>Ingeniería Industrial</h3>
+                    <div class="institution">Universidad Tecnológica Nacional (UTN)</div>
+                    <div class="period">2016 - 2023</div>
+                    <p class="description">
+                        Formación en optimización de procesos, análisis estadístico, investigación operativa y gestión de proyectos. 
+                        Base sólida en pensamiento analítico y resolución de problemas complejos.
+                    </p>
+                </div>
+                <div class="education-card">
+                    <div class="icon">📊</div>
+                    <h3>Data Analytics & Power BI</h3>
+                    <div class="institution">Coderhouse</div>
+                    <div class="period">Junio 2024</div>
+                    <p class="description">
+                        Certificación profesional en análisis de datos, visualización avanzada, desarrollo de dashboards interactivos, 
+                        DAX, Power Query y mejores prácticas de Business Intelligence.
+                    </p>
+                </div>
+                <div class="education-card">
+                    <div class="icon">🗄️</div>
+                    <h3>Associate Data Analyst in SQL</h3>
+                    <div class="institution">DataCamp</div>
+                    <div class="period">Julio 2025</div>
+                    <p class="description">
+                        Certificación en SQL avanzado cubriendo consultas complejas, optimización de queries, 
+                        análisis de datos, joins, subqueries, window functions y manipulación de bases de datos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contacto</h2>
+                <p class="subtitle">¿Interesado en colaborar? Conectemos</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <a href="mailto:fedecarnevalle@gmail.com">fedecarnevalle@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-details">
+                            <h3>Teléfono</h3>
+                            <a href="tel:+543513298047">+54 351 3298047</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h3>Ubicación</h3>
+                            <a>Córdoba, Argentina</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div class="contact-details">
+                            <h3>LinkedIn</h3>
+                            <a href="https://www.linkedin.com/in/federico-carnevalle/" target="_blank">federico-carnevalle</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💻</div>
+                        <div class="contact-details">
+                            <h3>GitHub</h3>
+                            <a href="https://github.com/fedecarnevalle?tab=repositories" target="_blank">fedecarnevalle</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form action="https://formspree.io/f/xvzlearq" method="POST">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Mensaje</label>
+                            <textarea name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Federico Carnevalle. Todos los derechos reservados.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/federico-carnevalle/" target="_blank" class="social-link" title="LinkedIn">in</a>
+                <a href="https://github.com/fedecarnevalle" target="_blank" class="social-link" title="GitHub">gh</a>
+                <a href="mailto:fedecarnevalle@gmail.com" class="social-link" title="Email">@</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('navMenu').classList.remove('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // Active nav link on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Language switcher
+        const translations = {
+            es: {
+                nav: {
+                    home: 'Inicio',
+                    about: 'Sobre Mí',
+                    stack: 'Stack Tecnológico',
+                    projects: 'Proyectos',
+                    experience: 'Experiencia',
+                    education: 'Educación',
+                    contact: 'Contacto'
+                },
+                hero: {
+                    role: 'Data & Business Analyst',
+                    tagline: 'Transformando datos en insights estratégicos con SQL, Power BI y BigQuery. Especializado en Business Intelligence y análisis de datos para la toma de decisiones basadas en datos.',
+                    contact: 'Contactar',
+                    projects: 'Ver Proyectos'
+                },
+                about: {
+                    title: 'Sobre Mí',
+                    subtitle: 'Analista de Datos con enfoque en Business Intelligence'
+                },
+                stack: {
+                    title: 'Stack Tecnológico',
+                    subtitle: 'Herramientas y plataformas que utilizo para análisis de datos'
+                },
+                projects: {
+                    title: 'Proyectos de Portfolio',
+                    subtitle: 'Proyectos de análisis de datos y BI desarrollados en GitHub',
+                    viewAll: 'Ver Todos los Proyectos en GitHub',
+                    viewProject: 'Ver en GitHub'
+                },
+                experience: {
+                    title: 'Experiencia Profesional',
+                    subtitle: 'Trayectoria en análisis de datos y Business Intelligence',
+                    tools: 'Tecnologías utilizadas:'
+                },
+                education: {
+                    title: 'Educación & Certificaciones',
+                    subtitle: 'Formación académica y desarrollo profesional continuo'
+                },
+                contact: {
+                    title: 'Contacto',
+                    subtitle: '¿Interesado en colaborar? Conectemos',
+                    name: 'Nombre',
+                    email: 'Email',
+                    message: 'Mensaje',
+                    send: 'Enviar Mensaje',
+                    phone: 'Teléfono',
+                    location: 'Ubicación'
+                },
+                footer: 'Todos los derechos reservados.'
+            },
+            en: {
+                nav: {
+                    home: 'Home',
+                    about: 'About',
+                    stack: 'Tech Stack',
+                    projects: 'Projects',
+                    experience: 'Experience',
+                    education: 'Education',
+                    contact: 'Contact'
+                },
+                hero: {
+                    role: 'Data & Business Analyst',
+                    tagline: 'Transforming data into strategic insights with SQL, Power BI, and BigQuery. Specialized in Business Intelligence and data analysis for data-driven decision making.',
+                    contact: 'Contact',
+                    projects: 'View Projects'
+                },
+                about: {
+                    title: 'About Me',
+                    subtitle: 'Data Analyst focused on Business Intelligence'
+                },
+                stack: {
+                    title: 'Tech Stack',
+                    subtitle: 'Tools and platforms I use for data analysis'
+                },
+                projects: {
+                    title: 'Portfolio Projects',
+                    subtitle: 'Data analysis and BI projects developed on GitHub',
+                    viewAll: 'View All Projects on GitHub',
+                    viewProject: 'View on GitHub'
+                },
+                experience: {
+                    title: 'Professional Experience',
+                    subtitle: 'Career in data analysis and Business Intelligence',
+                    tools: 'Technologies used:'
+                },
+                education: {
+                    title: 'Education & Certifications',
+                    subtitle: 'Academic background and continuous professional development'
+                },
+                contact: {
+                    title: 'Contact',
+                    subtitle: 'Interested in collaborating? Let\'s connect',
+                    name: 'Name',
+                    email: 'Email',
+                    message: 'Message',
+                    send: 'Send Message',
+                    phone: 'Phone',
+                    location: 'Location'
+                },
+                footer: 'All rights reserved.'
+            }
+        };
+
+        function switchLanguage(lang) {
+            // Update active button
+            document.querySelectorAll('.lang-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            const t = translations[lang];
+            
+            // Update navigation
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks[0].textContent = t.nav.home;
+            navLinks[1].textContent = t.nav.about;
+            navLinks[2].textContent = t.nav.stack;
+            navLinks[3].textContent = t.nav.projects;
+            navLinks[4].textContent = t.nav.experience;
+            navLinks[5].textContent = t.nav.education;
+            navLinks[6].textContent = t.nav.contact;
+            
+            // Update hero
+            document.querySelector('.hero-text .role').textContent = t.hero.role;
+            document.querySelector('.hero-text .tagline').textContent = t.hero.tagline;
+            document.querySelectorAll('.hero-buttons .btn')[0].textContent = t.hero.contact;
+            document.querySelectorAll('.hero-buttons .btn')[1].textContent = t.hero.projects;
+            
+            // Update section headers
+            document.querySelector('#about .section-header h2').textContent = t.about.title;
+            document.querySelector('#about .section-header .subtitle').textContent = t.about.subtitle;
+            document.querySelector('#skills .section-header h2').textContent = t.stack.title;
+            document.querySelector('#skills .section-header .subtitle').textContent = t.stack.subtitle;
+            document.querySelector('#projects .section-header h2').textContent = t.projects.title;
+            document.querySelector('#projects .section-header .subtitle').textContent = t.projects.subtitle;
+            document.querySelector('#experience .section-header h2').textContent = t.experience.title;
+            document.querySelector('#experience .section-header .subtitle').textContent = t.experience.subtitle;
+            document.querySelector('#education .section-header h2').textContent = t.education.title;
+            document.querySelector('#education .section-header .subtitle').textContent = t.education.subtitle;
+            document.querySelector('#contact .section-header h2').textContent = t.contact.title;
+            document.querySelector('#contact .section-header .subtitle').textContent = t.contact.subtitle;
+            
+            // Update contact form labels
+            document.querySelectorAll('.form-group label')[0].textContent = t.contact.name;
+            document.querySelectorAll('.form-group label')[1].textContent = t.contact.email;
+            document.querySelectorAll('.form-group label')[2].textContent = t.contact.message;
+            document.querySelector('.contact-form button').textContent = t.contact.send;
+            
+            // Update contact info headers
+            document.querySelectorAll('.contact-details h3')[1].textContent = t.contact.phone;
+            document.querySelectorAll('.contact-details h3')[2].textContent = t.contact.location;
+            
+            // Update tools labels
+            document.querySelectorAll('.tools-label').forEach(label => {
+                label.textContent = t.experience.tools;
+            });
+            
+            // Update project buttons
+            document.querySelectorAll('.project-link').forEach(link => {
+                if (link.textContent.includes('GitHub') || link.textContent.includes('Ver')) {
+                    link.textContent = t.projects.viewProject;
+                }
+            });
+            
+            const viewAllBtn = document.querySelector('#projects .btn-primary');
+            if (viewAllBtn) {
+                viewAllBtn.textContent = t.projects.viewAll;
+            }
+            
+            // Update footer
+            const footerText = document.querySelector('footer p');
+            footerText.textContent = `© 2025 Federico Carnevalle. ${t.footer}`;
+        }
+    </script>
+</body>
+</html>
